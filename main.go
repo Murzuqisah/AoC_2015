@@ -23,4 +23,7 @@ func main() {
 
 	floor := day1.FloorCount(string(input))
 	fmt.Println("Final floor: ", floor)
+
+	position := day1.Position(string(input), -1)
+	fmt.Println(position)
 }
