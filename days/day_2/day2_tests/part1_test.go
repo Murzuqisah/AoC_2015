@@ -3,7 +3,7 @@ package day2tests_test
 import (
 	"testing"
 
-	day2 "advent/day_2"
+	"advent/days/day_2/part1"
 )
 
 type Tests struct {
@@ -28,7 +28,7 @@ var Test = []Tests{
 func TestWrapping(t *testing.T) {
 	for _, tc := range Test {
 		t.Run(tc.name, func(t *testing.T) {
-			actual := day2.Wrapping(tc.value)
+			actual := part1.Wrapping(tc.value)
 			if actual != tc.expected {
 				t.Errorf("expected %d, but got %d", tc.expected, actual)
 			}

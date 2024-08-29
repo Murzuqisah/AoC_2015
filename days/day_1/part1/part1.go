@@ -1,4 +1,4 @@
-package day1
+package part1
 
 func FloorCount(s string) int {
 	/*

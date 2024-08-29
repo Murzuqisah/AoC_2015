@@ -1,4 +1,4 @@
-package day1
+package part2
 
 // func Position(input string, position int) int {
 // 	floorNum := map[byte]int{
