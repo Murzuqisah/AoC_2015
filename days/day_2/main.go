@@ -7,32 +7,11 @@ import (
 	"strconv"
 	"strings"
 
-	day1 "advent/day_1"
-	day2 "advent/day_2"
+	"advent/days/day_2/part1"
+	"advent/days/day_2/part2"
 )
 
 func main() {
-	/* ========== DAY 1 ======== */
-	file := os.Args[1]
-	// fmt.Println(file)
-
-	input, err := os.ReadFile(file)
-	if err != nil {
-		fmt.Println("error reading file", err)
-	}
-
-	fmt.Println(len(input))
-	if len(input) < 1 {
-		fmt.Println("File is empty")
-	}
-
-	floor := day1.FloorCount(string(input))
-	fmt.Println("Final floor: ", floor)
-
-	position := day1.Position(string(input), -1)
-	fmt.Println(position)
-
-	/* ========== DAY 2 ======== */
 	inputs := os.Args[1]
 
 	values, err := os.ReadFile(inputs)
@@ -45,6 +24,7 @@ func main() {
 	}
 
 	sum := 0
+	size := 0
 
 	scanner := bufio.NewScanner(strings.NewReader(string(values)))
 	for scanner.Scan() {
@@ -65,9 +45,14 @@ func main() {
 			continue
 		}
 
-		surfaceArea := day2.Wrapping([]int{l, w, h})
+		surfaceArea := part1.Wrapping([]int{l, w, h})
 		sum += surfaceArea
+
+		perimeter := part2.Length([]int{l, w, h})
+		size += perimeter
+
 	}
 
 	fmt.Println(sum)
+	fmt.Println(size)
 }
