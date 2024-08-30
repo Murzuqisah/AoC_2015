@@ -3,7 +3,7 @@ package day1tests_test
 import (
 	"testing"
 
-	day1 "advent/day_1"
+	"advent/days/day_1/part1"
 )
 
 type Cases struct {
@@ -63,7 +63,7 @@ var Case = []Cases{
 func TestFloorCount(t *testing.T) {
 	for _, tc := range Case {
 		t.Run(tc.argument, func(t *testing.T) {
-			actual := day1.FloorCount(tc.input)
+			actual := part1.FloorCount(tc.input)
 			if actual != tc.expected {
 				t.Errorf("expected %d but got %d", tc.expected, actual)
 			}

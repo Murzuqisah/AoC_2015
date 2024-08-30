@@ -3,7 +3,7 @@ package day1tests_test
 import (
 	"testing"
 
-	day1 "advent/day_1"
+	"advent/days/day_1/part2"
 )
 
 type Tests struct {
@@ -31,7 +31,7 @@ var Test = []Tests{
 func TestPosition(t *testing.T) {
 	for _, tt := range Test {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := day1.Position(tt.Input, tt.Position)
+			actual := part2.Position(tt.Input, tt.Position)
 			if actual != tt.expected {
 				t.Errorf("expected %d, got %d", tt.expected, actual)
 			}
