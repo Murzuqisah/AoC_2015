@@ -2,22 +2,27 @@ package part1
 
 import (
 	"crypto/md5"
-	"fmt"
+	"strconv"
+	"strings"
 )
 
 func CalculateChecksum(input string) (result string) {
-	value := md5.New()
-	value.Write([]byte(input))
-	checksumMD5 := fmt.Sprintf("%x", value.Sum(nil))
-	fmt.Println("Checksum (MD5):", checksumMD5)
+	value := md5.Sum([]byte(input))
 
-	// Find the first five leading zeros in the md5 hash
-	targetHash := "00000"
-	start := ""
-	for i := 0; i < len(checksumMD5); i++ {
-		if checksumMD5[:4] == "00000" {
-			result = checksumMD5[:5]
-		} else {
+	var hash, newHash string
+	var zeroCount int
+
+	prefix := strings.Repeat("0", zeroCount)
+	if !strings.HasPrefix(string(value), prefix) {
+		num := 1
+		for {
+			hash = input + strconv.Itoa(num)
+
+			newHash = string(md5.Sum([]byte(hash)))
+			if strings.HasPrefix(newHash, zeroCount) {
+				result = strconv.Itoa(num)
+			}
+			num++
 		}
 	}
 	return
