@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"advent/days/day_5/part_1"
+	part1 "advent/days/day_5/part_1"
+	"advent/days/day_5/part_2"
 )
 
 func main() {
@@ -23,11 +24,19 @@ func main() {
 	str := string(file)
 	words := strings.Fields(str)
 	count := 0
+	value := 0
 
 	for _, word := range words {
-		if part_1.NaugtyAndNice(word) {
+		if part1.NaugtyAndNice(word) {
 			count++
 		}
 	}
+	for _, word := range words {
+		if part_2.IsNice(word) {
+			value++
+		}
+	}
 	fmt.Printf("Number of nice words: %d\n", count)
+	fmt.Printf("Number of nicer words: %d\n", value)
+
 }
