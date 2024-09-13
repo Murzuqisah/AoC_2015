@@ -1,56 +1,57 @@
 package part1
 
 import (
-	"fmt"
 	"strconv"
+	"strings"
 )
 
 const maxvalues = 1000
 
-// get the number of lit bulbs in a rectangle defined by the given values
-func LightBulbs(values []string) int {
+func LightBulbs(instructions []string) int {
 	var grid [maxvalues][maxvalues]int
-	var currentGrid [maxvalues][maxvalues]int
 
-	var startX, startY, endX, endY int
-	var action string
-	count := 0
+	for _, instruction := range instructions {
+		parts := strings.Fields(instruction)
+		var action string
+		var startX, startY, endX, endY int
 
-	if len(values) == 7 {
-		action = values[0] + " " + values[1]
-		startX, _ = strconv.Atoi(values[2])
-		startY, _ = strconv.Atoi(values[3])
-		endX, _ = strconv.Atoi(values[5])
-		endY, _ = strconv.Atoi(values[6])
-		fmt.Println(startX, startX, endX, endY)
-	} else if len(values) == 6 {
-		action = values[0]
-		startX, _ = strconv.Atoi(values[1])
-		startY, _ = strconv.Atoi(values[2])
-		endX, _ = strconv.Atoi(values[4])
-		endY, _ = strconv.Atoi(values[5])
-	}
+		if parts[0] == "toggle" {
+			action = "toggle"
+			startX, _ = strconv.Atoi(strings.Split(parts[1], ",")[0])
+			startY, _ = strconv.Atoi(strings.Split(parts[1], ",")[1])
+			endX, _ = strconv.Atoi(strings.Split(parts[3], ",")[0])
+			endY, _ = strconv.Atoi(strings.Split(parts[3], ",")[1])
+		} else {
+			action = parts[1]
+			startX, _ = strconv.Atoi(strings.Split(parts[2], ",")[0])
+			startY, _ = strconv.Atoi(strings.Split(parts[2], ",")[1])
+			endX, _ = strconv.Atoi(strings.Split(parts[4], ",")[0])
+			endY, _ = strconv.Atoi(strings.Split(parts[4], ",")[1])
+		}
 
-	for x := startX; x <= endX; x++ {
-		for y := startY; y <= endY; y++ {
-			switch action {
-			case "turn on":
-				grid[x][y] = 1
-			case "turn off":
-				grid[x][y] = 0
-			case "toggle":
-				grid[x][y] ^= 1
+		for x := startX; x <= endX; x++ {
+			for y := startY; y <= endY; y++ {
+				switch action {
+				case "on":
+					grid[x][y] = 1
+				case "off":
+					grid[x][y] = 0
+				case "toggle":
+					grid[x][y] ^= 1
+				}
 			}
 		}
 	}
-	currentGrid = grid
+
+	count := 0
 	for i := 0; i < maxvalues; i++ {
 		for j := 0; j < maxvalues; j++ {
-			if currentGrid[i][j] == 1 {
+			if grid[i][j] == 1 {
 				count++
 			}
 		}
 	}
+
 	return count
 }
 
