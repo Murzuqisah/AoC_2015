@@ -9,28 +9,23 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	if len(args) != 1 {
+	if len(os.Args) != 2 {
 		fmt.Println("Usage: go run main.go <input_file>")
+		return
 	}
 
-	input := args[0]
+	input := os.Args[1]
 	file, err := os.ReadFile(input)
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return
 	}
-	word := strings.ReplaceAll(string(file), ",", " ")
-	lines := strings.Split(word, "\n")
-	i := 0
-	count := 0
-	for i < len(lines)-1 {
-		words := strings.Fields(lines[i])
-		fmt.Println(part1.LightBulbs(words))
-		i++
-		fmt.Println()
-		fmt.Printf("count:%v", count+part1.LightBulbs(words))
-		fmt.Println()
-	}
-	fmt.Println(count)
+
+	// Split the file content into lines and clean up the data
+	lines := strings.Split(strings.TrimSpace(string(file)), "\n")
+
+	// Call LightBulbs function with all instructions
+	count := part1.LightBulbs(lines)
+
+	fmt.Printf("Lit bulbs count: %d\n", count)
 }
